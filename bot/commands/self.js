@@ -7,26 +7,26 @@ const functions = require('../../utils/functions')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('self')
-        .setDescription('Extreme get own keys or licenses')
+        .setDescription('Manage your product licenses')
         .addSubcommand(o=>
-            o.setName('licenses')
-            .setDescription('Get your licenses')
+            o.setName('list')
+            .setDescription('Get the list of your licenses on the server')
         )
         .addSubcommand(o=>
             o.setName('cleardata')
             .setDescription('Clear the data of a specific license')
             .addStringOption(o=>
                 o.setName('license')
-                .setDescription('Enter a license')
+                .setDescription('Enter the name of the license')
                 .setRequired(true)
             )
         )
         .addSubcommand(o=>
             o.setName('info')
-            .setDescription('Get specific license information')
+            .setDescription('Get the information of your specific license')
             .addStringOption(o=>
                 o.setName('license')
-                .setDescription('Enter a license')
+                .setDescription('Enter the name of the product')
                 .setRequired(true)
             )
         ),

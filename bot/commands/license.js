@@ -11,63 +11,63 @@ module.exports = {
     permission: 'ADMINISTRATOR',
     data: new SlashCommandBuilder()
         .setName('license')
-        .setDescription('Manage a extreme license system')
+        .setDescription('Manage the ')
         .addSubcommand(o=>
             o.setName('create')
             .setDescription('Create a new license')
         )
         .addSubcommand(o=>
             o.setName('delete')
-            .setDescription('Delete a existing license')
+            .setDescription('Delete a specific license')
             .addStringOption(o=>
                 o.setName('license')
-                .setDescription('Enter a license')
+                .setDescription('Enter the name of the license')
                 .setRequired(true)
             )
         )    
         .addSubcommand(o=>
             o.setName('list')
-            .setDescription('Get all licenses of the server')
+            .setDescription('Get the list of licenses on the server')
             .addStringOption(o=>
                 o.setName('name')
-                .setDescription('Enter a client name')
+                .setDescription('Enter the name of the client')
                 .setRequired(false)
             )
             .addStringOption(o=>
                 o.setName('id')
-                .setDescription('Enter a client discord id')
+                .setDescription('Enter the discord id of the client')
                 .setRequired(false)
             )
             .addMentionableOption(o=>
                 o.setName('tag')
-                .setDescription('Enter a client tag')
+                .setDescription('Enter the discord tag of the client')
                 .setRequired(false)
             )
         )
         .addSubcommand(o=>
             o.setName('info')
-            .setDescription('Get info for a license')
+            .setDescription('Get info for a specific license')
             .addStringOption(o=>
                 o.setName('license')
-                .setDescription('Enter a license')
+                .setDescription('Enter the name of the license')
                 .setRequired(true)
             )
         )
         .addSubcommand(o=>
             o.setName('cleardata')
-            .setDescription('Clear data for a license')
+            .setDescription('Clear data for a specific license')
             .addStringOption(o=>
                 o.setName('license')
-                .setDescription('Enter a license')
+                .setDescription('Enter the name of the license')
                 .setRequired(true)
             )
         )
         .addSubcommand(o=>
             o.setName('edit')
-            .setDescription('Edit a existing license')
+            .setDescription('Edit a specific license')
             .addStringOption(o=>
                 o.setName('license')
-                .setDescription('Enter a license')
+                .setDescription('Enter the name of the license')
                 .setRequired(true)
             )
         ),

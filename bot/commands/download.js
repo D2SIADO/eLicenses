@@ -8,17 +8,17 @@ const ms = require('ms')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('download')
-        .setDescription('Manage all download links for your existing products')
+        .setDescription('Manage the product downloads')
         .addSubcommand(o=>
             o.setName('list')
-            .setDescription('Get list of your aviable products')
+            .setDescription('Get the list of downloads on the server')
         )
         .addSubcommand(o=>
             o.setName('get')
-            .setDescription('Get the download linf of a product')
+            .setDescription('Get the download for a specific product')
             .addStringOption(o=>
                 o.setName('product')
-                .setDescription('Enter a name')
+                .setDescription('Enter the name of the product')
                 .setRequired(true))
         ),
 

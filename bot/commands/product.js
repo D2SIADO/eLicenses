@@ -9,54 +9,54 @@ module.exports = {
     permission: 'ADMINISTRATOR',
     data: new SlashCommandBuilder()
         .setName('product')
-        .setDescription('Manage all products on the server')
+        .setDescription('Manage the products')
         .addSubcommand(o=>
             o.setName('create')
             .setDescription('Create a new product')
             .addStringOption(o=>
                 o.setName('name')
-                .setDescription('Enter a name')
+                .setDescription('Enter the name of the product')
                 .setRequired(true)
             )
             .addStringOption(o=>
                 o.setName('version')
-                .setDescription('Enter a version')
+                .setDescription('Enter the version of the product')
                 .setRequired(true)
             )
             .addIntegerOption(o=>
                 o.setName('price')
-                .setDescription('Enter a price')
+                .setDescription('Enter the price of the product')
                 .setRequired(true)
             )
         )
         .addSubcommand(o=>
             o.setName('delete')
-            .setDescription('Delete a existing product')
+            .setDescription('Delete a specific product')
             .addStringOption(o=>
                 o.setName('product')
-                .setDescription('Enter a product')
+                .setDescription('Enter the name of the product')
                 .setRequired(true)
             )
         )    
         .addSubcommand(o=>
             o.setName('list')
-            .setDescription('Get all products of the server')
+            .setDescription('Get the list of products on the server')
         )
         .addSubcommand(o=>
             o.setName('info')
-            .setDescription('Get info of a product')
+            .setDescription('Get info of a specific product')
             .addStringOption(o=>
                 o.setName('product')
-                .setDescription('Enter a product')
+                .setDescription('Enter the name of the product')
                 .setRequired(true)
             )
         )
         .addSubcommand(o=>
             o.setName('edit')
-            .setDescription('Edit a existing product')
+            .setDescription('Edit a specific existing product')
             .addStringOption(o=>
                 o.setName('product')
-                .setDescription('Enter a product')
+                .setDescription('Enter the name of the product')
                 .setRequired(true)
             )
         ),
