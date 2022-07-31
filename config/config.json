@@ -1,0 +1,39 @@
+{
+    "name": "Extreme Licenses",
+    "port": "3000",
+    "mongo": {
+        "databaseuri" : ""
+    },
+    "api": {
+        "routes": {
+            "licenses": "/verify"
+        },
+        "access": {
+            "secret-key": "AOS#1203@S9XS"
+        }
+    },
+    "web": {   
+        "routes": {
+          "web": "/"
+        },
+        "admin": {
+            "username": "D2SIADO",
+            "password": "extremelicense1"
+        }
+    },
+    "bot": {
+        "token": "",
+        "guildid": "",
+        "icon": "https://winaero.com/blog/wp-content/uploads/2018/09/key-icon-big-256.png",
+        "presence": {
+            "enabled": true,
+            "interval": "10s",
+            "type": "PLAYING",
+            "activities": [
+                "I see Extreme Developer licenses :)",
+                "My prefix are /, i use app commands",
+                "Probably i got free on github/d2siado"
+            ]
+        }
+    }
+}
