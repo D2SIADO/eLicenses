@@ -32,7 +32,7 @@ module.exports = {
         ),
 
     async run(client, interaction) {
-        if (interaction.options.getSubcommand() === 'licenses') {
+        if (interaction.options.getSubcommand() === 'list') {
             const licenses = await licensemodel.find({
                 discordid: interaction.user.id
             })
