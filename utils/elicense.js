@@ -13,7 +13,7 @@ function initSystem () {
         console.log(chalk.red(`[!] The service will be exit because the system found a error`))
         process.exit(1)
     }
-    mongoose.connect(config.mongo.databaseuri).catch(()=>{
+    mongoose.connect(config.mongo.databaseuri).catch((err)=>{
         console.log(err)
         console.log(chalk.red(`[!] The service will be exit because the system found a error`))
         process.exit(1)
