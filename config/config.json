@@ -2,14 +2,14 @@
     "name": "Extreme Licenses",
     "port": "3000",
     "mongo": {
-        "databaseuri" : ""
+        "databaseuri" : "mongodb+srv://d2siado:Lunarclient1@dfcs.mpakb.mongodb.net/?retryWrites=true&w=majority"
     },
     "api": {
         "routes": {
             "licenses": "/verify"
         },
         "access": {
-            "secret-key": "AOS#1203@S9XS"
+            "secret-key": "EDA@8S9X9JG#AX9"
         }
     },
     "web": {   
@@ -22,8 +22,8 @@
         }
     },
     "bot": {
-        "token": "",
-        "guildid": "",
+        "token": "MTAwMjY5NTUyOTQ1ODgzMTUwMQ.GIKsbE.DazYU-sAqpjTew2r2QOBvONECon-smw6kn0Kn0",
+        "guildid": "907469832625193001",
         "icon": "https://winaero.com/blog/wp-content/uploads/2018/09/key-icon-big-256.png",
         "presence": {
             "enabled": true,

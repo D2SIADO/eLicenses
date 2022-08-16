@@ -2,11 +2,11 @@ const express = require('express')
 const config = require('../config/config')
 const path = require('path')
 const cookieParser = require('cookie-parser')
-const functions = require('../utils/functions')
 const chalk = require('chalk')
 
 const licensemodel = require('../models/licenseModel')
 const productmodel = require('../models/productModel')
+const blacklist = require('../models/blackModel')
 
 const app = express()
 
@@ -25,12 +25,21 @@ app.post(config.api.routes.license, async(req, res)=> {
     const { keylicense, productname, version } = req.body
     const authorization_key = req.headers.authorization
     if (req.body && keylicense && productname && version && authorization_key) {
-        if (authorization_key === config.api.key) {
-            const productdb = await productmodel.findOne({
-                name: productname
+        check = await blacklist.findOne({ip:{ $regex : new RegExp(ip, "i") }})
+        if (check) {
+            res.status(401)
+            return res.send({
+                "status_msg": "SERVER_BLACKLISTED",
+                "status_overview": "failed",
+                "server_name": check.name,
+                "blacklist_reason": check.reason,
+                "status_code": 401
             })
+        }
+        if (authorization_key === config.api.key) {
+            const productdb = await productmodel.findOne({name:{ $regex : new RegExp(productname, "i") }})
             if (productdb) {
-                const licensedb = await licensemodel.findOne({ keylicense })
+                const licensedb = await licensemodel.findOne({keylicense:{ $regex : new RegExp(keylicense, "i") }})
                 if (licensedb) {
                     if (licensedb.productname === productname) {
                         if (licensedb.ipcap !== 0) {

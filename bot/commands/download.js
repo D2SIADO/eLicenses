@@ -58,7 +58,7 @@ module.exports = {
                 , ephemeral: true})
                 let productsl = []
                 for (let i =0;i<licenses.length;i++) {
-                    const product = products.find((p)=> p.name == licenses[i].productname)
+                    const product = products.find((p)=> p.name.toLowerCase() == licenses[i].productname.toLowerCase())
                     if (!product) return
                     productsl.push(product)
                 }
@@ -129,11 +129,11 @@ module.exports = {
                 , ephemeral: true})
                 let productsl = []
                 for (let i =0;i<licenses.length;i++) {
-                    const product = products.find((p)=> p.name == licenses[i].productname)
+                    const product = products.find((p)=> p.name.toLowerCase() == licenses[i].productname.toLowerCase())
                     if (!product) return
                     productsl.push(product)
                 }
-                const product = productsl.find((p)=> p.name.toLowerCase() == productString.toLowerCase())
+                const product = productsl.findOne({name:{ $regex : new RegExp(productString, "i") }})
                 if (!product) return interaction.reply({
                     embeds: [ new MessageEmbed()
                         .setAuthor({

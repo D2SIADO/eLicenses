@@ -78,7 +78,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'info') {
             let licenseString = interaction.options.getString('license')
             const license = await licensemodel.findOne({
-                keylicense: licenseString,
+                keylicense: { $regex : new RegExp(licenseString, "i") },
                 discordid: interaction.user.id
             })
             if (!license) return interaction.reply({
@@ -95,13 +95,39 @@ module.exports = {
                     .setImage(`https://i.ibb.co/QjxPpsZ/Red.png`)
                     .setTimestamp() ]
             , ephemeral: true})
-
-            functions.createLicenseEmbed(license, interaction, 'License Information')
+            const iplist = license.iplist.map((data, i) => {
+                return `${i + 1}: ${data.ip}`;
+            });
+            if (iplist.length == 0) iplist.push("1: None");
+            return interaction.reply({
+                embeds: [ new MessageEmbed()
+                .setAuthor({
+                    name: interaction.user.tag,
+                    iconURL: interaction.user.avatarURL()
+                })
+                .setTitle('License Information').setColor('GREEN')
+                .addField('**License key**', '```yaml\n' + license.keylicense + '```')
+                .addField('**Client name**', license.clientname, true)
+                .addField('**Discord id**', license.discordid, true)
+                .addField('**Discord username**', license.discordname, true)
+                .addField('**Discord tag**', license.discordtag, true)
+                .addField('**Product**', license.productname, true)
+                .addField('**Created by**', license.createdby ? license.createdby : 'None', true)
+                .addField('**Total IP**', `${license.iplist.length}/${license.ipcap}`, true)
+                .addField('**Latest IP**', license.lastip ? license.lastip : 'None', true)
+                .addField('**Created at**', `<t:${(license.createdat / 1000 | 0)}:f>`, true)
+                .addField('**IP List**', '```yaml\n'+ iplist.join('\n').toString() +'```', false)
+                .setImage(`https://i.ibb.co/GFx981b/Green.png`)
+                .setFooter({
+                    text: config.name,
+                    iconURL: config.bot.icon
+                }).setTimestamp()]
+                , ephemeral: true})
         }
         if (interaction.options.getSubcommand() === 'cleardata') {
             let licenseString = interaction.options.getString('license')
             const license = await licensemodel.findOne({
-                keylicense: licenseString,
+                keylicense: { $regex : new RegExp(licenseString, "i") },
                 discordid: interaction.user.id
             })
             if (!license || license.length == 0) return interaction.reply({

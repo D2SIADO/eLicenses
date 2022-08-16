@@ -66,8 +66,7 @@ module.exports = {
             const name = interaction.options.getString('name')
             const version = interaction.options.getString('version')
             const price = interaction.options.getInteger('price')
-            
-            const check = await productModel.findOne({ name: name })
+            const check = await productModel.findOne({name:{ $regex : new RegExp(name, "i") }})
             if (check) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
@@ -112,8 +111,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'delete') {
             const productString = interaction.options.getString('product')
-            const products = await productModel.find()
-            const product = products.find((p)=> p.name.toLowerCase() == productString.toLowerCase())
+            const product = productModel.findOne({name:{ $regex : new RegExp(productString, "i") }})
             if (!product) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
@@ -161,7 +159,7 @@ module.exports = {
                         collector.on('collect',async(i)=>{
                             await i.deferUpdate()
                             if (i.customId === 'yes') {
-                                product.delete()
+                                await product.deleteOne()
                                 return interaction.editReply({
                                     embeds: [ new MessageEmbed()
                                         .setAuthor({
@@ -230,8 +228,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'info') {
             const productString = interaction.options.getString('product')
-            const products = await productModel.find()
-            const product = products.find((p)=> p.name.toLowerCase() == productString.toLowerCase())
+            const product = await productModel.findOne({name:{ $regex : new RegExp(productString, "i") }})
             if (!product) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
@@ -270,8 +267,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'edit') {
             const productString = interaction.options.getString('product')
-            const products = await productModel.find()
-            const product = products.find((p)=> p.name.toLowerCase() == productString.toLowerCase())
+            const product = await productModel.findOne({name:{ $regex : new RegExp(productString, "i") }})
             if (!product) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({

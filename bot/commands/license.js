@@ -119,7 +119,6 @@ module.exports = {
                     productname = i.customId
                     collector.stop()
                     const fetchMessage = await interaction.fetchReply()
-
                     const product = products.find((p)=> p.name.toLowerCase() == productname.toLowerCase())
                 
                     if (!product) return interaction.editReply({
@@ -319,9 +318,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'delete') {
             let licenseString = interaction.options.getString('license')
-            const license = await licenseModel.findOne({
-                keylicense: licenseString
-            })
+            const license = await licenseModel.findOne({keylicense:{ $regex : new RegExp(licenseString, "i") }})
             if (!license || license.length == 0) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
@@ -370,7 +367,7 @@ module.exports = {
                 collector.on('collect', async(i)=>{
                     await i.deferUpdate()
                     if (i.customId === 'yes') {
-                        await licenseModel.findOneAndDelete({keylicense: licenseString})
+                        await license.deleteOne()
                         return interaction.editReply({
                             embeds: [ new MessageEmbed()
                                 .setAuthor({
@@ -413,15 +410,11 @@ module.exports = {
             let user
 
             if (name) {
-                licenses = await licenseModel.find({
-                    clientname: name
-                })
+                licenses = await licenseModel.find({clientname:{ $regex : new RegExp(name, "i") }})
                 user = name
             }
             else if (id) {
-                licenses = await licenseModel.find({
-                    discordid: id
-                })
+                licenses = await licenseModel.find({discordid:{ $regex : new RegExp(id, "i") }})
                 user = `<@${id}>`
             }
             else if (tag) {
@@ -474,9 +467,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'info') {
             let licenseString = interaction.options.getString('license')
-            const license = await licenseModel.findOne({
-                keylicense: licenseString
-            })
+            const license = await licenseModel.findOne({keylicense:{ $regex : new RegExp(licenseString, "i") }})
             if (!license || license.length == 0) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
@@ -523,9 +514,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'cleardata') {
             let licenseString = interaction.options.getString('license')
-            const license = await licenseModel.findOne({
-                keylicense: licenseString
-            })
+            const license = await licenseModel.findOne({keylicense:{ $regex : new RegExp(licenseString, "i") }})
             if (!license || license.length == 0) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
@@ -561,9 +550,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'edit') {
             const licenseString = interaction.options.getString('license')
-            const license = await licenseModel.findOne({
-                keylicense: licenseString
-            })
+            const license = await licenseModel.findOne({keylicense:{ $regex : new RegExp(licenseString, "i") }})
             if (!license) return interaction.reply({
                 embeds: [ new MessageEmbed()
                     .setAuthor({
