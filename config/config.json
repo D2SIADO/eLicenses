@@ -9,7 +9,7 @@
             "licenses": "/verify"
         },
         "access": {
-            "secret-key": ""
+            "secret-key": "AOS#1203@S9XS"
         }
     },
     "web": {   
@@ -36,4 +36,4 @@
             ]
         }
     }
-}
+} 
