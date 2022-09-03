@@ -41,6 +41,14 @@ else:
 ```
 ### Java
 There are the using of the api for java
+#### How to use the class
+```java
+if (!License.check(new URI("Your host with port")
+    , "the license" // Get on the config.yml or set the string
+    , "name of the plugin" // Get on the plugin.yml or set the string
+    , "version of the plugin" // Get on the plugin.yml or set the string
+    , "your api key")) return; // The api key on your config.json file elicenses
+```
 #### Maven Plugin
 ```xml
 <plugin>
