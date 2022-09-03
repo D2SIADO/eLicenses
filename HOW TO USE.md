@@ -85,6 +85,7 @@ There are the using of the api for java
     <scope>provided</scope>
 </dependency>
 ```
+#### Java Class
 ```java
 @RequiredArgsConstructor
 @Getter
