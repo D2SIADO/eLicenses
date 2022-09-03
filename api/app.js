@@ -22,9 +22,9 @@ app.use(cookieParser())
 
 app.post(config.api.routes.license, async(req, res)=> {
     const ip = (req.header('x-forwarded-for') || req.connection.remoteAddress).replace('::ffff:', '')
-    const { keylicense, productname, version } = req.body
+    const { licensekey, product, version } = req.body
     const authorization_key = req.headers.authorization
-    if (req.body && keylicense && productname && version && authorization_key) {
+    if (req.body && licensekey && product && version && authorization_key) {
         check = await blacklist.findOne({ip:{ $regex : new RegExp(ip, "i") }})
         if (check) {
             res.status(401)
@@ -37,11 +37,11 @@ app.post(config.api.routes.license, async(req, res)=> {
             })
         }
         if (authorization_key === config.api.key) {
-            const productdb = await productmodel.findOne({name:{ $regex : new RegExp(productname, "i") }})
+            const productdb = await productmodel.findOne({name:{ $regex : new RegExp(product, "i") }})
             if (productdb) {
-                const licensedb = await licensemodel.findOne({keylicense:{ $regex : new RegExp(keylicense, "i") }})
+                const licensedb = await licensemodel.findOne({licensekey:{ $regex : new RegExp(licensekey, "i") }})
                 if (licensedb) {
-                    if (licensedb.productname === productname) {
+                    if (licensedb.product === product) {
                         if (licensedb.ipcap !== 0) {
                             if (licensedb.iplist.length > licensedb.ipcap) {
                                 res.status(401)
@@ -114,7 +114,6 @@ app.post(config.api.routes.license, async(req, res)=> {
             })
         }
     } else {
-        console.log(chalk.red(`[-] I recieve a invalid request from ${ip}`))
         res.status(400)
         return res.send({
             "status_msg": "INVALID_REQUEST",

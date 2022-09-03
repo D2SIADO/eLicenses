@@ -58,7 +58,7 @@ module.exports = {
                 , ephemeral: true})
                 let productsl = []
                 for (let i =0;i<licenses.length;i++) {
-                    const product = products.find((p)=> p.name.toLowerCase() == licenses[i].productname.toLowerCase())
+                    const product = products.find((p)=> p.name.toLowerCase() == licenses[i].product.toLowerCase())
                     if (!product) return
                     productsl.push(product)
                 }
@@ -129,7 +129,7 @@ module.exports = {
                 , ephemeral: true})
                 let productsl = []
                 for (let i =0;i<licenses.length;i++) {
-                    const product = products.find((p)=> p.name.toLowerCase() == licenses[i].productname.toLowerCase())
+                    const product = products.find((p)=> p.name.toLowerCase() == licenses[i].product.toLowerCase())
                     if (!product) return
                     productsl.push(product)
                 }

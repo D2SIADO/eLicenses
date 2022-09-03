@@ -60,7 +60,7 @@ module.exports = {
                             iconURL: interaction.user.avatarURL()
                         }).setTitle('Active Licenses').setColor('GREEN')
                         .setDescription(`Here is your active licenses, if to see the licenses information use /self license\n\n**Total Licenses:** ${licenses.length}\n\n`)
-                        .addField(`${licenses[i].productname} License #${i+1}`, '```yaml\n'+`License: ${licenses[i].keylicense}\nIP Useds: ${licenses[i].iplist.length+'/'+licenses[i].ipcap}\nClient Name: ${licenses[i].clientname}\nClient Account: ${licenses[i].discordtag}`+'```')
+                        .addField(`${licenses[i].product} License #${i+1}`, '```yaml\n'+`License: ${licenses[i].licensekey}\nIP Useds: ${licenses[i].iplist.length+'/'+licenses[i].ipcap}\nClient Name: ${licenses[i].clientname}\nClient Account: ${licenses[i].discordtag}`+'```')
                         .setFooter({
                             text: config.name,
                             iconURL: config.bot.icon
@@ -78,7 +78,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'info') {
             let licenseString = interaction.options.getString('license')
             const license = await licensemodel.findOne({
-                keylicense: { $regex : new RegExp(licenseString, "i") },
+                licensekey: { $regex : new RegExp(licenseString, "i") },
                 discordid: interaction.user.id
             })
             if (!license) return interaction.reply({
@@ -106,12 +106,12 @@ module.exports = {
                     iconURL: interaction.user.avatarURL()
                 })
                 .setTitle('License Information').setColor('GREEN')
-                .addField('**License key**', '```yaml\n' + license.keylicense + '```')
+                .addField('**License key**', '```yaml\n' + license.licensekey + '```')
                 .addField('**Client name**', license.clientname, true)
                 .addField('**Discord id**', license.discordid, true)
                 .addField('**Discord username**', license.discordname, true)
                 .addField('**Discord tag**', license.discordtag, true)
-                .addField('**Product**', license.productname, true)
+                .addField('**Product**', license.product, true)
                 .addField('**Created by**', license.createdby ? license.createdby : 'None', true)
                 .addField('**Total IP**', `${license.iplist.length}/${license.ipcap}`, true)
                 .addField('**Latest IP**', license.lastip ? license.lastip : 'None', true)
@@ -127,7 +127,7 @@ module.exports = {
         if (interaction.options.getSubcommand() === 'cleardata') {
             let licenseString = interaction.options.getString('license')
             const license = await licensemodel.findOne({
-                keylicense: { $regex : new RegExp(licenseString, "i") },
+                licensekey: { $regex : new RegExp(licenseString, "i") },
                 discordid: interaction.user.id
             })
             if (!license || license.length == 0) return interaction.reply({
@@ -153,7 +153,7 @@ module.exports = {
                         name: interaction.user.tag,
                         iconURL: interaction.user.avatarURL()
                     }).setTitle('Cleared Data').setColor('GREEN')
-                    .setDescription(`I sussesfuly cleared your IP list and data for the license, the product of the license are ${license.productname}. For more info you can use /self info`)
+                    .setDescription(`I sussesfuly cleared your IP list and data for the license, the product of the license are ${license.product}. For more info you can use /self info`)
                     .setFooter({
                         text: config.name,
                         iconURL: config.bot.icon

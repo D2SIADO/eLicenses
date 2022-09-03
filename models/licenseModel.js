@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 module.exports = mongoose.model('licenses', new mongoose.Schema ({
-    productname: String,
-    keylicense: String,
+    product: String,
+    licensekey: String,
     clientname: String,
     discordid: String,
     discordname: String,
