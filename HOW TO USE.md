@@ -4,6 +4,7 @@ eLicenses is a simple manager of licenses, the api works with Post
 methods, there are a aviable lenguages in guide...
 
 - Python
+- Java
 
 > Note: This are only a examples, are different POST methods...
 
