@@ -116,10 +116,10 @@ module.exports = {
                 })
                 collector.on('collect', async(i)=>{
                     await i.deferUpdate()
-                    product = i.customId
+                    productid = i.customId
                     collector.stop()
                     const fetchMessage = await interaction.fetchReply()
-                    const product = products.find((p)=> p.name.toLowerCase() == product.toLowerCase())
+                    const product = products.find((p)=> p.name.toLowerCase() == productid.toLowerCase())
                 
                     if (!product) return interaction.editReply({
                         embeds: [ fetchMessage.embeds[0]
@@ -758,11 +758,11 @@ module.exports = {
                                 })
                                 collector.on('collect', async(i)=>{
                                     await i.deferUpdate()
-                                    product = i.customId
+                                    productid = i.customId
                                     collector.stop()
                                     const fetchMessage = await interaction.fetchReply()
                 
-                                    const product = products.find((p)=> p.name.toLowerCase() == product.toLowerCase())
+                                    const product = products.find((p)=> p.name.toLowerCase() == productid.toLowerCase())
                                     const productlic = products.find((p)=> p.name.toLowerCase() == license.product.toLowerCase())
 
                                     if (!product || !productlic) return interaction.editReply({
